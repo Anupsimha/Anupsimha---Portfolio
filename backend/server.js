@@ -7,28 +7,33 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/dbConfig.js";
 import contactRoutes from "./routes/contactRoutes.js";
 
-const app = express();
-const PORT = 3000 || process.env.PORT;
-
-const __dirname = path.resolve();
-
 dotenv.config();
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+const __dirname = path.resolve();
+
+app.use(cors({
+    origin: process.env.CLIENT_URL || "*", // Example: "https://your-app.onrender.com"
+    methods: ["GET", "POST"],
+    credentials: true,
+}));
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+// API Routes
 app.use("/api/contact", contactRoutes);
 
+// Serve frontend (React build)
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-app.get("*" , (req , res) => {
-    res.sendFile(path.join(__dirname, "frontend" , "dist" , "index.html"));
-})
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
     connectDB();
     console.log(`✅ Server is running on http://localhost:${PORT}`);

@@ -47,7 +47,7 @@ const Contact = () => {
     setLoading(true); // Start loader
 
     try {
-      const res = await axios.post("http://localhost:3000/api/contact/send-message", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/contact/send-message`, {
         name: form.name,
         email: form.email,
         subject: form.subject,
