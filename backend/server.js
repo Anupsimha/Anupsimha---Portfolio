@@ -37,13 +37,6 @@ app.use(cookieParser());
 // API Routes
 app.use("/api/contact", contactRoutes);
 
-// Serve frontend (React build)
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
-
 // Start the server
 app.listen(PORT, () => {
     connectDB();
