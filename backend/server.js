@@ -15,7 +15,7 @@ const __dirname = path.resolve();
 
 const allowedOrigins = [
     "http://localhost:5173", // dev
-    "https://your-frontend.onrender.com" // production
+    "https://anupsimha-portfolio-frontend.onrender.com" // production
 ];
 
 app.use(cors({

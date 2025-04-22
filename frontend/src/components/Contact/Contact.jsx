@@ -48,7 +48,7 @@ const Contact = () => {
     setLoading(true); // Start loader
 
     try {
-      const res = await axios.post(`http://localhost:3000/api/contact/send-message`, {
+      const res = await axios.post(`https://anupsimha-portfolio-backend.onrender.com/api/contact/send-message`, {
         name: form.name,
         email: form.email,
         subject: form.subject,
