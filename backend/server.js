@@ -13,8 +13,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const __dirname = path.resolve();
 
+const allowedOrigins = [
+    "http://localhost:5173", // dev
+    "https://your-frontend.onrender.com" // production
+];
+
 app.use(cors({
-    origin: process.env.CLIENT_URL || "*", // Example: "https://your-app.onrender.com"
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        } else {
+        callback(new Error("CORS Not Allowed"));
+        }
+    },
     methods: ["GET", "POST"],
     credentials: true,
 }));
